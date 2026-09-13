@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: iams
+  datasource:
+    url: jdbc:mysql://localhost:3306/iams?allowPublicKeyRetrieval=true&useSSL=false
+    username: iams
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
