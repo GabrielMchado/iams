@@ -21,7 +21,7 @@ public class JwtService {
 
     public String generateToken(UserModel userModel) {
         long agora = System.currentTimeMillis();
-        long expiracao = agora + 60;
+        long expiracao = agora + 1000 * 60 * 60;
 
         return Jwts.builder()
                 .subject(userModel.getEmail())
