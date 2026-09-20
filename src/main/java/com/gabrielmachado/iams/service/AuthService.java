@@ -32,7 +32,6 @@ public class AuthService {
         userModel.setEmail(request.email());
         userModel.setName(request.name());
         userModel.setPasswd(passwordEncoder.encode(request.passwd()));
-
         userRepository.save(userModel);
     }
 
