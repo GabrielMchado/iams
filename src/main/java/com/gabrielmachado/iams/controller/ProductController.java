@@ -19,13 +19,13 @@ public class ProductController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterRequest> register(@RequestBody RegisterProductRequest request) throws Exception {
+    public ResponseEntity<RegisterProductRequest> register(@RequestBody RegisterProductRequest request) throws Exception {
         productService.registerProduct(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<RegisterRequest> update(@RequestBody RegisterProductRequest request) throws Exception {
+    @PatchMapping("/update")
+    public ResponseEntity<RegisterProductRequest> update(@RequestBody RegisterProductRequest request) throws Exception {
         productService.updateProduct(request);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
