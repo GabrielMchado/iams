@@ -5,6 +5,8 @@ import com.gabrielmachado.iams.model.ProductModel;
 import com.gabrielmachado.iams.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class ProductService {
 
@@ -38,7 +40,7 @@ public class ProductService {
             alterado = true;
         }
 
-        if(!request.description().isEmpty() && !productModel.getDescription().equals(request.description())) {
+        if(request.description() != null && !Objects.equals(productModel.getDescription(), request.description())) {
             productModel.setDescription(request.description());
             alterado = true;
         }
