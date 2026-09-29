@@ -50,9 +50,10 @@ public class ProductService {
         productRepository.save(productModel);
     }
 
-    public void deleteProduct(String productName){
+    public ProductModel deleteProduct(String productName){
         ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
         productRepository.delete(productModel);
+        return productModel;
     }
 
     public ProductModel getProduct(String productName){

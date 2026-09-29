@@ -1,5 +1,6 @@
 package com.gabrielmachado.iams.controller;
 
+import com.gabrielmachado.iams.dto.DeleteProductResponse;
 import com.gabrielmachado.iams.dto.RegisterProductRequest;
 import com.gabrielmachado.iams.model.ProductModel;
 import com.gabrielmachado.iams.service.ProductService;
@@ -34,4 +35,11 @@ public class ProductController {
         ProductModel productModel = productService.getProduct(productName);
         return ResponseEntity.ok(productModel);
     }
+
+    @DeleteMapping("/{productName}")
+    public ResponseEntity<DeleteProductResponse> deleteProduct(@PathVariable String productName){
+        ProductModel productModel = productService.deleteProduct(productName);
+        return ResponseEntity.accepted().body(new DeleteProductResponse("Produto '" + productModel.getProductName() + "' deletado com sucesso"));
+    }
+
 }
