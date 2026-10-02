@@ -1,6 +1,7 @@
 package com.gabrielmachado.iams.controller;
 
 import com.gabrielmachado.iams.dto.DeleteProductResponse;
+import com.gabrielmachado.iams.dto.PutProductResponse;
 import com.gabrielmachado.iams.dto.RegisterProductRequest;
 import com.gabrielmachado.iams.model.ProductModel;
 import com.gabrielmachado.iams.service.ProductService;
@@ -24,10 +25,16 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PatchMapping("/update")
-    public ResponseEntity<Void> update(@RequestBody RegisterProductRequest request) throws Exception {
-        productService.updateProduct(request);
+    @PatchMapping("/{productName}")
+    public ResponseEntity<Void> update(@PathVariable String productName, @RequestBody RegisterProductRequest request) throws Exception {
+        productService.updateProduct(productName, request);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PutMapping("/{productName}")
+    public ResponseEntity<PutProductResponse> modify(@PathVariable String productName, @RequestBody RegisterProductRequest request) throws Exception {
+        ProductModel productModel = productService.modifyProduct(productName, request);
+        return ResponseEntity.accepted().body(new PutProductResponse(productModel.getPrice(), productModel.getDescription()));
     }
 
     @GetMapping("/{productName}")

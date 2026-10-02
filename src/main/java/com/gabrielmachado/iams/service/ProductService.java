@@ -30,12 +30,12 @@ public class ProductService {
         productRepository.save(productModel);
     }
 
-    public void updateProduct(RegisterProductRequest request){
-        ProductModel productModel = productRepository.findByProductName(request.productName()).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+    public void updateProduct(String productName, RegisterProductRequest request){
+        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
 
         boolean alterado = false;
 
-        if(!productModel.getPrice().equals(request.price())) {
+        if(request.price() != null && !productModel.getPrice().equals(request.price())) {
             productModel.setPrice(request.price());
             alterado = true;
         }
@@ -58,6 +58,16 @@ public class ProductService {
 
     public ProductModel getProduct(String productName){
         ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+        return productModel;
+    }
+
+    public ProductModel modifyProduct(String productName, RegisterProductRequest request){
+        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+
+        productModel.setPrice(request.price());
+        productModel.setDescription(request.description());
+
+        productRepository.save(productModel);
         return productModel;
     }
 
