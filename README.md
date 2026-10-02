@@ -61,6 +61,16 @@ python3 deteccao.py
 | POST | `/auth/login` | Autentica, retorna JWT |
 | GET | `/auth/me` | Rota protegida de teste |
 | POST | `/product/register` | Cria produto |
-| PATCH | `/product/update` | Atualiza campos informados |
+| PATCH | `/product/{productName}` | Atualiza campos informados |
+| PUT | `/product/{productName}` | Substitui produto por completo |
 | GET | `/product/{productName}` | Busca produto |
 | DELETE | `/product/{productName}` | Remove produto |
+
+## Limitações conhecidas
+
+- O fallback via Ollama (modelo local, 3.8B parâmetros) apresenta viés de posição
+  em casos de sinal fraco: a ordem das categorias no prompt pode mudar a resposta
+  quando o dado não aponta claramente pra nenhuma categoria. Em dados com sinal
+  mais forte, a resposta se manteve estável mesmo reordenando o prompt. Reforça
+  a decisão de nunca confiar cegamente na saída do LLM — por isso a arquitetura
+  sempre prevê revisão humana e histórico de decisão.

@@ -18,9 +18,9 @@ def classificar_com_ollama(requisicoes, tempo_resposta, erros):
     - Erros 500: {erros}
 
     Categorias possíveis:
+    - Tráfego Legítimo Atípico (fora do padrão, mas sem indício claro de ataque)
     - Possível Scraping/Enumeração de Dados (volume alto, sem erro, resposta normal)
     - Possível Exfiltração de Dados (tempo de resposta alto, sem muito erro)
-    - Tráfego Legítimo Atípico (fora do padrão, mas sem indício claro de ataque)
 
     Responda em UMA linha, só com o nome da categoria mais provável, sem explicação."""
 
