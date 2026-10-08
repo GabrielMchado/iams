@@ -3,6 +3,7 @@ package com.gabrielmachado.iams.service;
 import com.gabrielmachado.iams.dto.LoginRequest;
 import com.gabrielmachado.iams.dto.LoginResponse;
 import com.gabrielmachado.iams.dto.RegisterRequest;
+import com.gabrielmachado.iams.exceptions.InvalidCredentialsException;
 import com.gabrielmachado.iams.model.UserModel;
 import com.gabrielmachado.iams.repository.UserRepository;
 
@@ -36,10 +37,10 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest request){
-        UserModel userModel = userRepository.findByEmail(request.email()).orElseThrow(() -> new RuntimeException("Senha ou usuario invalido"));
+        UserModel userModel = userRepository.findByEmail(request.email()).orElseThrow(() -> new InvalidCredentialsException("Senha ou usuario invalido"));
 
         if(!passwordEncoder.matches(request.passwd(), userModel.getPasswd())){
-            throw new RuntimeException("Senha ou usuario invalido");
+            throw new InvalidCredentialsException("Senha ou usuario invalido");
         }
 
         String token = jwtService.generateToken(userModel);
