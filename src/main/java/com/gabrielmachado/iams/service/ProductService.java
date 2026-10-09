@@ -1,6 +1,7 @@
 package com.gabrielmachado.iams.service;
 
 import com.gabrielmachado.iams.dto.RegisterProductRequest;
+import com.gabrielmachado.iams.exceptions.ResourceNotFoundException;
 import com.gabrielmachado.iams.model.ProductModel;
 import com.gabrielmachado.iams.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class ProductService {
     }
 
     public void updateProduct(String productName, RegisterProductRequest request){
-        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new ResourceNotFoundException("Produto nao encontrado"));
 
         boolean alterado = false;
 
@@ -51,18 +52,18 @@ public class ProductService {
     }
 
     public ProductModel deleteProduct(String productName){
-        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new ResourceNotFoundException("Produto nao encontrado"));
         productRepository.delete(productModel);
         return productModel;
     }
 
     public ProductModel getProduct(String productName){
-        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new ResourceNotFoundException("Produto nao encontrado"));
         return productModel;
     }
 
     public ProductModel modifyProduct(String productName, RegisterProductRequest request){
-        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+        ProductModel productModel = productRepository.findByProductName(productName).orElseThrow(() -> new ResourceNotFoundException("Produto nao encontrado"));
 
         productModel.setPrice(request.price());
         productModel.setDescription(request.description());
