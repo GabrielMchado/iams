@@ -1,6 +1,7 @@
 package com.gabrielmachado.iams.service;
 
 import com.gabrielmachado.iams.dto.RegisterProductRequest;
+import com.gabrielmachado.iams.exceptions.NoChangesException;
 import com.gabrielmachado.iams.exceptions.ResourceNotFoundException;
 import com.gabrielmachado.iams.model.ProductModel;
 import com.gabrielmachado.iams.repository.ProductRepository;
@@ -46,7 +47,7 @@ public class ProductService {
             alterado = true;
         }
 
-        if(!alterado) throw new RuntimeException("Nenhum valor alterado");
+        if(!alterado) throw new NoChangesException("Nenhum valor alterado");
 
         productRepository.save(productModel);
     }
