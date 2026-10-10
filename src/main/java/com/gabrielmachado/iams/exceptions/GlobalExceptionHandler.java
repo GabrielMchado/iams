@@ -34,4 +34,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(409).body(new ErrorResponse(ex.getMessage()));
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleUnexpected(Exception ex) {
+        return ResponseEntity.status(500).body(new ErrorResponse("Erro inesperado"));
+    }
 }
