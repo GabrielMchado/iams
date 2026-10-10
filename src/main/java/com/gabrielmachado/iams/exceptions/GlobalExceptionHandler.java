@@ -29,4 +29,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(new ErrorResponse("Corpo da requisição inválido"));
     }
 
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleAlreadyExists(ResourceAlreadyExistsException ex) {
+        return ResponseEntity.status(409).body(new ErrorResponse(ex.getMessage()));
+    }
+
 }

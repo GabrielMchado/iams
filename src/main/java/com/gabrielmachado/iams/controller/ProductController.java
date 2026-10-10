@@ -20,19 +20,19 @@ public class ProductController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody RegisterProductRequest request) throws Exception {
+    public ResponseEntity<Void> register(@RequestBody RegisterProductRequest request) {
         productService.registerProduct(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PatchMapping("/{productName}")
-    public ResponseEntity<Void> update(@PathVariable String productName, @RequestBody RegisterProductRequest request) throws Exception {
+    public ResponseEntity<Void> update(@PathVariable String productName, @RequestBody RegisterProductRequest request) {
         productService.updateProduct(productName, request);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/{productName}")
-    public ResponseEntity<PutProductResponse> modify(@PathVariable String productName, @RequestBody RegisterProductRequest request) throws Exception {
+    public ResponseEntity<PutProductResponse> modify(@PathVariable String productName, @RequestBody RegisterProductRequest request) {
         ProductModel productModel = productService.modifyProduct(productName, request);
         return ResponseEntity.accepted().body(new PutProductResponse(productModel.getPrice(), productModel.getDescription()));
     }

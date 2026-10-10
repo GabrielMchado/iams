@@ -4,6 +4,7 @@ import com.gabrielmachado.iams.dto.LoginRequest;
 import com.gabrielmachado.iams.dto.LoginResponse;
 import com.gabrielmachado.iams.dto.RegisterRequest;
 import com.gabrielmachado.iams.exceptions.InvalidCredentialsException;
+import com.gabrielmachado.iams.exceptions.ResourceAlreadyExistsException;
 import com.gabrielmachado.iams.model.UserModel;
 import com.gabrielmachado.iams.repository.UserRepository;
 
@@ -23,9 +24,9 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
-    public void register(RegisterRequest request) throws Exception {
+    public void register(RegisterRequest request) {
         if(userRepository.existsUserModelByEmail(request.email())){
-            throw new Exception("Email já cadstrado...");
+            throw new ResourceAlreadyExistsException("Email já cadastrado");
         }
 
         UserModel userModel = new UserModel();
