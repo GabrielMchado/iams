@@ -5,6 +5,7 @@ import com.gabrielmachado.iams.dto.PutProductResponse;
 import com.gabrielmachado.iams.dto.RegisterProductRequest;
 import com.gabrielmachado.iams.model.ProductModel;
 import com.gabrielmachado.iams.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ProductController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody RegisterProductRequest request) {
+    public ResponseEntity<Void> register(@Valid @RequestBody RegisterProductRequest request) {
         productService.registerProduct(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
