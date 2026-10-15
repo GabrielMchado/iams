@@ -53,7 +53,9 @@ export JWT_SECRET="sua-chave-secreta-aqui"
 
 # ML Service
 cd ml-service
+python3 -m venv .venv            # só na primeira vez
 source .venv/bin/activate
+pip install -r requirements.txt  # só na primeira vez
 python3 deteccao.py
 ```
 

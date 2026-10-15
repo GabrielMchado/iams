@@ -28,13 +28,17 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
         this.objectMapper = objectMapper;
     }
 
-    record RequestEvent(String metodo, String rota, int status, String usuario, String ip, String timestamp) {}
+    record RequestEvent(String metodo, String rota, int status, String usuario, String ip, String timestamp, long tempoRespostaMs) {}
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        long inicio = System.nanoTime();
+
         filterChain.doFilter(request, response);
+
+        long fim = (System.nanoTime() - inicio) / 1_000_000;
 
         String usuario = SecurityContextHolder.getContext().getAuthentication() != null
                 ? SecurityContextHolder.getContext().getAuthentication().getName()
@@ -50,7 +54,8 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
                     response.getStatus(),
                     usuario,
                     request.getRemoteAddr(),
-                    Instant.now().toString()
+                    Instant.now().toString(),
+                    fim
             );
             String json = objectMapper.writeValueAsString(event);
             kafkaTemplate.send("requisicoes", json);
