@@ -13,6 +13,8 @@ total = 0
 
 print("Aguardando mensagens...")
 try:
+    soma_tempo = 0
+    com_tempo = 0
     for mensagem in consumer:
         evento = mensagem.value
         status = evento["status"]
@@ -20,8 +22,17 @@ try:
         contagem[status] = contagem.get(status, 0) + 1
         total += 1
 
+        tempo = evento.get("tempoRespostaMs")
+        if tempo is not None:
+            soma_tempo += tempo
+            com_tempo += 1
+
         if total % 10 == 0:
-            print(total, contagem)
+            media = soma_tempo / com_tempo if com_tempo > 0 else None
+            print(total, contagem, "média ms:", media)
             contagem = {}
+            soma_tempo = 0
+            com_tempo = 0
+
 except KeyboardInterrupt:
     print("\nEncerrando consumidor.")
