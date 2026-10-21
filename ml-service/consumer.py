@@ -36,3 +36,5 @@ try:
 
 except KeyboardInterrupt:
     print("\nEncerrando consumidor.")
+    if total % 10 != 0:
+        print("janela parcial:", contagem)
