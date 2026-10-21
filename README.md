@@ -23,7 +23,7 @@ Cliente → Backend (Spring Boot) → Kafka → ML Service (Python)
 - Classificação por regra + fallback via LLM local
 - Tratamento global de erros com respostas JSON padronizadas
 - Validação de entrada no cadastro de produto
-- Consumidor Kafka básico em Python (ainda sem ligação com a detecção)
+- Consumidor Kafka em Python com agregação por janela de 10 eventos (contagem por status e tempo médio de resposta)
 
 **Planejado:**
 - ML Service consumindo eventos reais do Kafka (hoje roda sobre dado sintético)
